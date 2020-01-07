@@ -1,0 +1,33 @@
+<div class="placement">
+  <input
+    type="text"
+    class="form-control"
+    style="width: auto;"
+    placeholder="Search"
+    [(ngModel)]="query"
+    id="listSearch"
+  />
+  <select class="form-control" style="width: auto;" [(ngModel)]="categ">
+    <option value="">Choose Category</option>
+    <option *ngFor="let category of categories" value="{{ category }}">{{
+      category
+    }}</option>
+  </select>
+</div>
+<hr />
+<div class="main">
+  <app-main-item
+    [item]="source"
+    *ngFor="
+      let source of sources
+        | category: categ
+        | search: query
+        | paginate: { itemsPerPage: count, currentPage: p }
+    "
+  >
+  </app-main-item>
+</div>
+<div class="text-left">
+  displaying page:
+  <pagination-controls (pageChange)="p = $event"></pagination-controls>
+</div>
