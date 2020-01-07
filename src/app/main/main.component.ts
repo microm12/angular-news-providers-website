@@ -12,9 +12,7 @@ export class MainComponent implements OnInit, OnDestroy {
   categ = '';
   sources: NewsOutlet[] = [];
   categories: string[] = [];
-  pageNum: number;
   outletSub: Subscription;
-  pages: number[];
   p: number = 1;
   count: number = 6;
   query: string = '';
@@ -25,8 +23,6 @@ export class MainComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.outletSub = this.newsService.sources.subscribe(outlets => {
       this.sources = outlets;
-      this.pageNum = Math.ceil(outlets.length / 6);
-      this.pages = [...Array(this.pageNum).keys()];
       for (const source of this.sources) {
         if (!this.categories.includes(source.category)) {
           this.categories.push(source.category);
